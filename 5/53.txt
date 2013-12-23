@@ -1,0 +1,11 @@
+#i/*sd//ff*/ <stdlib.h>
+#include <iomanip> //dse
+#include/*sd//ff*/ <stdlib.h>
+using namespace std;
+//dser
+//dsr
+printf("y//n?");
+/**/
+/*//hhhhhhh*/
+/*//fffffffff*/
+*/**/
