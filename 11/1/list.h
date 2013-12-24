@@ -24,8 +24,6 @@ void printList (List *list);
 
 void deleteList (List *list);
 
-FILE *openFile ();
-
 void makeList (FILE *file, List *list);
 
 bool equals (List *list1, List *list2);

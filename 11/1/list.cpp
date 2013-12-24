@@ -89,21 +89,7 @@ void deleteList (List *list)
 	}
 }
 
-FILE *openFile ()
-{
-	FILE *file;
-	file = NULL;
-	printf("Enter file adress\n");
-	char *fileAdress = new char[maxFileAdressLength];
-	while (file == NULL)
-	{
-		scanf("%s", fileAdress);
-		file = fopen(fileAdress, "r");
-		if (file == NULL)
-			printf("File not found!\n");
-	}
-	return file;
-}
+
 
 void makeList (FILE *file, List *list)
 {

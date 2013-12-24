@@ -1,27 +1,39 @@
 #include <stdio.h>
 #include "list.h"
 
+FILE *openFile ()
+{
+	FILE *file;
+	file = NULL;
+	printf("Enter file adress\n");
+	char *fileAdress = new char[maxFileAdressLength];
+	while (file == NULL)
+	{
+		scanf("%s", fileAdress);
+		file = fopen(fileAdress, "r");
+		if (file == NULL)
+			printf("File not found!\n");
+	}
+	delete []fileAdress;
+	return file;
+}
+
+enum State
+{
+	exit,
+	areEqual,
+	findValue,
+	findSum
+};
+
 int main ()
 {
-	/*FILE *file1 = openFile();
-	List *polynomal1 = createList();
-	makeList(file1, polynomal1);
-	printList(polynomal1);
-	fclose(file1);
-	//int result = value(polynomal1, 1);
-	file1 = openFile();
-	List *polynomal2 = createList();
-	makeList(file1, polynomal2);
-	printList(polynomal2);
-	fclose(file1);
-	List *result = add(polynomal1, polynomal2);
-	printList(result);*/
 	printf ("Choose option:\n1 - Test for equality\n2 - Find value\n3 - Calculation of the sum\n0 - exit\n");
-	int state = 0;
+	State state;
 	scanf("%d", &state);
-	while (state != 0)
+	while (state != exit)
 	{
-		if (state == 1)
+		if (state == areEqual)
 		{
 			FILE *file = openFile();
 			List *polynomal1 = createList();
@@ -42,7 +54,7 @@ int main ()
 
 		}
 
-		if (state == 2)
+		if (state == findValue)
 		{
 			FILE *file = openFile();
 			List *polynomal1 = createList();
@@ -56,7 +68,7 @@ int main ()
 			delete polynomal1;
 		}
 
-		if (state == 3)
+		if (state == findSum)
 		{
 			FILE *file = openFile();
 			List *polynomal1 = createList();
