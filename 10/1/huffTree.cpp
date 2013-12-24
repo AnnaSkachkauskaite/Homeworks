@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include "huffTree.h"
 
-Symbol *huffTree (Symbol *symbs[], int numb)
+Symbol *huffTree (Symbol *symbs[], int numberOfSymbols)
 {
-	for (int i = 0; i < numb - 1; ++i)
-		for (int j = i + 1; j < numb; ++ j)
+	for (int i = 0; i < numberOfSymbols - 1; ++i)
+		for (int j = i + 1; j < numberOfSymbols; ++ j)
 			if (symbs[i]->freq < symbs[j]->freq)
 			{
 				Symbol *buf = symbs[j];
@@ -13,20 +13,17 @@ Symbol *huffTree (Symbol *symbs[], int numb)
 				symbs[i] = buf;
 			}
 	Symbol *tmp = new Symbol;
-	tmp->freq = symbs[numb-1]->freq + symbs[numb-2]->freq;
+	tmp->freq = symbs[numberOfSymbols-1]->freq + symbs[numberOfSymbols-2]->freq;
     tmp->code[0] = 0;
-    tmp->left = nullptr;
-    tmp->right = nullptr;
+    tmp->left = symbs[numberOfSymbols-2];
+    tmp->right = symbs[numberOfSymbols-1];
 
-    tmp->left = symbs[numb-2];
-    tmp->right = symbs[numb-1];
-
-    if(numb==2)
+    if(numberOfSymbols==2)
         return tmp;
 	else
 	{
-		symbs[numb - 2] = tmp;
-		return huffTree(symbs, numb - 1);
+		symbs[numberOfSymbols - 2] = tmp;
+		return huffTree(symbs, numberOfSymbols - 1);
 	}
 }
 
@@ -56,15 +53,15 @@ void printTreeInc (Symbol *root)
 		printTreeInc(root->right);
 }
 
-void freeTree(Symbol **root)
+void freeTree(Symbol *(&root))
 {
-	if (*root == nullptr) 
-		return;
-	if ((*root)->left != nullptr)   
-		freeTree(&(*root)->left); 
-    if ((*root)->right != nullptr)  
-		freeTree(&(*root)->right);
-	(*root) = nullptr;
+        if (root == nullptr) 
+                return;
+        if (root->left != nullptr)   
+                freeTree(root->left); 
+    if (root->right != nullptr)  
+                freeTree(root->right);
+        root = nullptr;
 }
 
 
@@ -94,11 +91,11 @@ void makeCode (FILE *fin, char* fileAdress, Symbol arr[SIZE])
 	fclose(fout);
 }
 
-void makeKey (Symbol arr[SIZE], int count)
+void makeKey (Symbol arr[SIZE], int numberOfSymbols)
 {
 	FILE *fout;
 	fout = fopen("key.txt", "w");
-	for (int i = 0; i < count; ++i)
+	for (int i = 0; i < numberOfSymbols; ++i)
 	{
 		fprintf(fout, "%c %s\n",arr[i].sym, arr[i].code);
 	}
