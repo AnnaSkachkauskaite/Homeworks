@@ -23,9 +23,10 @@ int main ()
 	getValue(tree->root);
 	printf("\nResult:  ");
 	printTreeInc(tree->root);
+	printf("\n");
 	freeTree(tree->root);
 	delete tree;
 	fclose(file);
 	delete []fileAdress;
-	gets(fileAdress);
+	scanf("%c", &c);;
 }
