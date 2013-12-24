@@ -4,13 +4,13 @@
 
 void addValue (List *list, String *word)
 {
-	ListElement *tmp = list->first;
+	ListElement *tmp = list->first; 
 	while (tmp->next != nullptr)
 	{ 
 		tmp = tmp->next;
 	}
 	ListElement *addValue = new ListElement;
-	addValue->word = clone(word);
+	addValue->word = clone(word);                                  
 	addValue->numb = 1;
 	addValue->next = nullptr;
 	tmp->next = addValue;
@@ -64,6 +64,7 @@ void deleteList (List *list)
 	while (tmp)
 	{
 		deleteString(tmp->word);
+		delete tmp->word;
 		delValue = tmp;
 		tmp = tmp->next;
 		delete(delValue);
