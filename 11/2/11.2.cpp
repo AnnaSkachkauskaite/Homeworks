@@ -10,10 +10,25 @@ enum State
 	point,
 	fractPart,
 	exp,
-	expSign,
-	expPart,
+	signAfterExp,
+	degree,
 	error
 };
+
+bool isNumb (char c)
+{
+	return (c >= '0') && (c <= '9');
+}
+
+bool isExp (char c)
+{
+	return c == 'E';
+}
+
+bool isPoint (char c)
+{
+	return c == '.';
+}
 
 int main ()
 {
@@ -84,27 +99,27 @@ int main ()
 				buf = str[0];
 				str++;
 				if ((buf >= '0') && (buf <= '9'))
-					state = expPart;
+					state = degree;
 				else if (((buf == '-') || (buf == '+')) && (*str))
-					state = expSign;
+					state = signAfterExp;
 				else
 					state = error;
 				break;
 
-			case expSign:
+			case signAfterExp:
 				buf = str[0];
 				str++;
 				if ((buf >= '0') && (buf <= '9'))
-					state = expPart;
+					state = degree;
 				else
 					state = error;
 				break;
 
-			case expPart:
+			case degree:
 				buf = str[0];
 				str++;
 				if ((buf >= '0') && (buf <= '9'))
-					state = expPart;
+					state = degree;
 				else
 					state = error;
 				break;
