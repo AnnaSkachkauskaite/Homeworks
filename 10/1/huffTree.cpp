@@ -5,7 +5,7 @@
 Symbol *huffTree (Symbol *symbs[], int numberOfSymbols)
 {
 	for (int i = 0; i < numberOfSymbols - 1; ++i)
-		for (int j = i + 1; j < numberOfSymbols; ++ j)
+		for (int j = i + 1; j < numberOfSymbols; ++j)
 			if (symbs[i]->freq < symbs[j]->freq)
 			{
 				Symbol *buf = symbs[j];
@@ -13,13 +13,15 @@ Symbol *huffTree (Symbol *symbs[], int numberOfSymbols)
 				symbs[i] = buf;
 			}
 	Symbol *tmp = new Symbol;
-	tmp->freq = symbs[numberOfSymbols-1]->freq + symbs[numberOfSymbols-2]->freq;
-    tmp->code[0] = 0;
-    tmp->left = symbs[numberOfSymbols-2];
-    tmp->right = symbs[numberOfSymbols-1];
+	tmp->freq = symbs[numberOfSymbols - 1]->freq + symbs[numberOfSymbols - 2]->freq;
+	tmp->code[0] = 0;
+	tmp->left = symbs[numberOfSymbols - 2];
+	tmp->right = symbs[numberOfSymbols - 1];
 
-    if(numberOfSymbols==2)
-        return tmp;
+	if 
+		
+		(numberOfSymbols == 2)
+		return tmp;
 	else
 	{
 		symbs[numberOfSymbols - 2] = tmp;
@@ -29,18 +31,18 @@ Symbol *huffTree (Symbol *symbs[], int numberOfSymbols)
 
 void makeCodes(Symbol *root)
 {
-    if (root->left)
-    {
-        strcpy(root->left->code, root->code);
-        strcat(root->left->code, "0");
-        makeCodes(root->left);
-    }
-    if (root->right)
-    {
-        strcpy(root->right->code, root->code);
-        strcat(root->right->code, "1");
-        makeCodes(root->right);
-    }
+	if (root->left)
+	{
+		strcpy(root->left->code, root->code);
+		strcat(root->left->code, "0");
+		makeCodes(root->left);
+	}
+	if (root->right)
+	{
+		strcpy(root->right->code, root->code);
+		strcat(root->right->code, "1");
+		makeCodes(root->right);
+	}
 }
 
 void printTreeInc (Symbol *root)
