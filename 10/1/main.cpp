@@ -48,7 +48,10 @@ int main ()
 		printTreeInc(root);
 		freeTree(root);
 		for (int i = 0; i < numberOfSymbols; ++i)
+		{
+			freeTree(syms[i]);
 			syms[i] = nullptr;
+		}
 		delete root;
 		fclose(file);
 		makeCode(file, fileAdress, arr);
