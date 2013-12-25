@@ -64,7 +64,7 @@ void deleteList (List *list)
 	while (tmp)
 	{
 		deleteString(tmp->word);
-		delete tmp->word;
+		//delete tmp->word;
 		delValue = tmp;
 		tmp = tmp->next;
 		delete(delValue);

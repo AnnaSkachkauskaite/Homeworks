@@ -23,7 +23,7 @@ void addSymbol (String *string, char symb)
 		addElem->symb = symb;
 		addElem->next = nullptr;
 		tmp->next = addElem;
-		string->last = addElem;
+		string->last = addElem;                                      
 	}
 	else
 	{
@@ -32,7 +32,7 @@ void addSymbol (String *string, char symb)
 		addElem->symb = symb;
 		addElem->next = nullptr;
 		tmp->next = addElem;
-		string->last = string->last->next;
+		string->last = string->last->next;                          
 	}
 }
 
@@ -57,11 +57,12 @@ void deleteString (String *string)
 		tmp = tmp->next;
 		delete(delValue);
 	}
+	delete string;
 }
 
 String *clone (String *string)
 {
-	String *result = createString();
+	String *result = createString();                                //
 	StringElement *tmp = string->first->next;
 	while (tmp != nullptr)
 	{
@@ -73,7 +74,7 @@ String *clone (String *string)
 
 String *concatenation (String *string1, String *string2)
 {
-	String *result = createString();
+	String *result = createString();                                 //
 	StringElement *tmp = string1->first->next;
 	while(tmp != nullptr)
 	{

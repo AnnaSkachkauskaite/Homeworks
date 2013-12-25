@@ -18,15 +18,14 @@ Symbol *huffTree (Symbol *symbs[], int numberOfSymbols)
 	tmp->left = symbs[numberOfSymbols - 2];
 	tmp->right = symbs[numberOfSymbols - 1];
 
-	if 
-		
-		(numberOfSymbols == 2)
+	if (numberOfSymbols == 2)
 		return tmp;
 	else
 	{
 		symbs[numberOfSymbols - 2] = tmp;
 		return huffTree(symbs, numberOfSymbols - 1);
 	}
+	delete tmp;
 }
 
 void makeCodes(Symbol *root)
@@ -63,8 +62,10 @@ void freeTree(Symbol *(&root))
                 freeTree(root->left); 
     if (root->right != nullptr)  
                 freeTree(root->right);
-        root = nullptr;
+    root = nullptr;
+	delete root;
 }
+
 
 
 void makeCode (FILE *fin, char* fileAdress, Symbol arr[SIZE])

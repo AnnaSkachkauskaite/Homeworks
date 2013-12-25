@@ -50,5 +50,5 @@ void makeHashArr (HashElem *hashArr[hashMax], FILE *file, int length[hashMax])
 		delete []buf;
 		deleteString(word);
 	}
-	delete word;
+	//delete word;
 }
