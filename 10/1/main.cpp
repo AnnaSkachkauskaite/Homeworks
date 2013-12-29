@@ -16,23 +16,26 @@ int main ()
 		buf = fgetc(file);
 		Symbol *syms[SIZE];
 		Symbol arr[SIZE];
+		for (int i = 0; i < SIZE; ++i)
+			arr[i].sym = 0;
 		while (buf != EOF)
 		{
 			bool isFind = false;
 			for (int i = 0; i < numberOfSymbols; ++i)
 			{
-				if (arr[i].sym == buf)
+				if (syms[i]->sym == buf)
 				{
-					++arr[i].count;
+					++syms[i]->count;
 					isFind = true;
 				}
 			}
 			if (isFind == false)
 			{
-				arr[numberOfSymbols].sym = buf;
-				arr[numberOfSymbols].count = 1;
-				arr[numberOfSymbols].left = nullptr;
-				arr[numberOfSymbols].right = nullptr;
+				syms[numberOfSymbols] = new Symbol;
+				syms[numberOfSymbols]->sym = buf;
+				syms[numberOfSymbols]->count = 1;
+				syms[numberOfSymbols]->left = nullptr;
+				syms[numberOfSymbols]->right = nullptr;
 				++numberOfSymbols;
 			}
 			buf = fgetc(file);
@@ -40,22 +43,20 @@ int main ()
 		}
 		for (int i = 0; i < numberOfSymbols; ++i)
 		{
-			arr[i].freq = (float) arr[i].count / numb;
-			syms[i] = &arr[i];
+			syms[i]->freq = (float) syms[i]->count / numb;
 		}
 		Symbol *root=huffTree(syms, numberOfSymbols);
 		makeCodes(root);
 		printTreeInc(root);
+		fclose(file);
+		makeCodeArr(root, arr);
+		makeCode(file, fileAdress, arr);
+		makeKey(arr, numberOfSymbols);
 		freeTree(root);
 		for (int i = 0; i < numberOfSymbols; ++i)
 		{
-			freeTree(syms[i]);
-			syms[i] = nullptr;
+			delete syms[i];
 		}
-		delete root;
-		fclose(file);
-		makeCode(file, fileAdress, arr);
-		makeKey(arr, numberOfSymbols);
 	}
 	else
 		printf("File not found!\n");

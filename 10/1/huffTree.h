@@ -19,7 +19,9 @@ void makeCodes(Symbol *root);
 
 void printTreeInc (Symbol *root);
 
-void freeTree(Symbol *(&root));
+void freeTree(Symbol *root);
+
+void makeCodeArr (Symbol *root, Symbol arr[]);
 
 void makeCode (FILE *fin, char* fileAdress, Symbol arr[SIZE]);
 

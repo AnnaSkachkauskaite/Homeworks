@@ -54,7 +54,28 @@ void printTreeInc (Symbol *root)
 		printTreeInc(root->right);
 }
 
-void freeTree(Symbol *(&root))
+void addToArr (Symbol arr[], char symb, char* code)
+{
+	int count = 0;
+	while (arr[count].sym != 0)
+	{
+		++count;
+	}
+	arr[count].sym = symb;
+	strcpy(arr[count].code, code);
+}
+
+void makeCodeArr (Symbol *root, Symbol arr[])
+{
+	if(root->left != nullptr)
+		makeCodeArr(root->left, arr);
+	if (root->sym > 0)
+		addToArr(arr, root->sym, root->code);
+	if(root->right != nullptr)
+		makeCodeArr(root->right, arr);
+}
+
+void freeTree(Symbol *root)
 {
         if (root == nullptr) 
                 return;
@@ -62,7 +83,6 @@ void freeTree(Symbol *(&root))
                 freeTree(root->left); 
     if (root->right != nullptr)  
                 freeTree(root->right);
-    root = nullptr;
 	delete root;
 }
 
@@ -70,37 +90,37 @@ void freeTree(Symbol *(&root))
 
 void makeCode (FILE *fin, char* fileAdress, Symbol arr[SIZE])
 {
-	FILE *fout;
-	fout = fopen("code.txt", "w");
-	fin = fopen(fileAdress, "r");
-	char buf = 0;
-	buf = fgetc(fin);
-	while (buf != EOF)
-	{
-		bool isFind = false;
-		int i = 0;
-		while (!isFind)
-		{
-			if (arr[i].sym == buf)
-			{
-				fprintf(fout, "%s", arr[i].code);
-				isFind = true;
-			}
-			++i;
-		}
-		buf = fgetc(fin);
-	}
-	fclose(fin);
-	fclose(fout);
+        FILE *fout;
+        fout = fopen("code.txt", "w");
+        fin = fopen(fileAdress, "r");
+        char buf = 0;
+        buf = fgetc(fin);
+        while (buf != EOF)
+        {
+                bool isFind = false;
+                int i = 0;
+                while (!isFind)
+                {
+                        if (arr[i].sym == buf)
+                        {
+                                fprintf(fout, "%s", arr[i].code);
+                                isFind = true;
+                        }
+                        ++i;
+                }
+                buf = fgetc(fin);
+        }
+        fclose(fin);
+        fclose(fout);
 }
 
 void makeKey (Symbol arr[SIZE], int numberOfSymbols)
 {
-	FILE *fout;
-	fout = fopen("key.txt", "w");
-	for (int i = 0; i < numberOfSymbols; ++i)
-	{
-		fprintf(fout, "%c %s\n",arr[i].sym, arr[i].code);
-	}
-	fclose(fout);
+        FILE *fout;
+        fout = fopen("key.txt", "w");
+        for (int i = 0; i < numberOfSymbols; ++i)
+        {
+                fprintf(fout, "%c %s\n",arr[i].sym, arr[i].code);
+        }
+        fclose(fout);
 }

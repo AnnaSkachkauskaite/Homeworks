@@ -69,6 +69,7 @@ void deleteList (List *list)
 		tmp = tmp->next;
 		delete(delValue);
 	}
+	delete list;
 }
 
 bool isEmpty (List *list)
