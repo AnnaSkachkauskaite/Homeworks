@@ -1,7 +1,7 @@
 #include <iostream>
 #include "pointlist.h"
 
-PoinerList::PoinerList() : List()
+PoinerList::PoinerList() 
 {
 	this->first = new ListElement;
 	this->first->next = nullptr;

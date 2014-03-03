@@ -13,11 +13,11 @@ public:
 
 private:
 	struct ListElement
-    {
-        int value;
-        ListElement *next;
-    };
+	{
+		int value;
+		ListElement *next;
+	};
 
-    ListElement *first;
+	ListElement *first;
 };
 

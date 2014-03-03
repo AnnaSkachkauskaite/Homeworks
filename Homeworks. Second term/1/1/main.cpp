@@ -4,21 +4,22 @@
 
 int main()
 {
-	/*PoinerList *list = new PoinerList;
+	PoinerList *list = new PoinerList;
 	list->addValue(7);
 	list->addValue(3);
 	list->addValue(11);
 	list->printList();
 	list->deleteValue(3);
 	list->printList();
-	delete list;*/
-	ArrayList *list = new ArrayList;
-	list->addValue(12);
-	list->addValue(2);
-	list->addValue(8);
-	list->printList();
-	list->deleteValue(2);
-	list->deleteValue(5);
-	list->printList();
 	delete list;
+
+
+	ArrayList *list2 = new ArrayList;
+	list2->addValue(12);
+	list2->addValue(2);
+	list2->addValue(8);
+	list2->printList();
+	list2->deleteValue(2);
+	list2->deleteValue(5);
+	list2->printList();
 }
