@@ -41,5 +41,8 @@ int main()
 	printArray(arr2, size);
 	cout << "Result of insertion sort\n";
 	printArray(arr3, size);
+	delete bubble;
+	delete qsort;
+	delete insort;
 	cin >> size;
 }
