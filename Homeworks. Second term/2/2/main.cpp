@@ -37,6 +37,7 @@ int main()
 			ConsoleWriter *writer = new ConsoleWriter;
 			writer->printMatrix(arr, size);
 			delete writer;
+			break;
 		}
 
 	case file:
