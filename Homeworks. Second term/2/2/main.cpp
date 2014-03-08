@@ -46,6 +46,7 @@ int main()
 			writer->printMatrix(arr, size);
 			cout << "Checkout output.txt file\n";
 			delete writer;
+			break;
 		}
 	}
 	cin >> size;
