@@ -8,3 +8,4 @@ class Calculator : public QObject
 public:
     int calculate(int arg1,int arg2, QString oper);
 };
+

@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-03-09T18:31:43
+# Project created by QtCreator 2014-03-16T20:02:04
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = simple_calculator
+TARGET = calculator1
 TEMPLATE = app
 
 
