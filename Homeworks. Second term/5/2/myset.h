@@ -61,12 +61,13 @@ void MySet<T>::incert(T value)
     addValue->value = value;
     addValue->next = tmp->next;
     tmp->next = addValue;
+    ++size;
 }
 
 template <typename T>
 void MySet<T>::del(T value)
 {
-    if (!this->isFind(value))
+    if (!(this->isFind(value)))
         return;
     SetElement *tmp = this->first->next;
     while (tmp->value != value)
@@ -74,6 +75,7 @@ void MySet<T>::del(T value)
     SetElement *delValue = tmp;
     tmp = tmp->next;
     delete(delValue);
+    --size;
 
 }
 
@@ -81,6 +83,8 @@ template <typename T>
 bool MySet<T>::isFind(T value)
 {
     bool contains = false;
+    if (this->isEmpty())
+        return false;
     SetElement *tmp = this->first;
     while ((!contains) || (tmp->next != nullptr))
     {
@@ -96,7 +100,7 @@ bool MySet<T>::isFind(T value)
 template <typename T>
 bool MySet<T>::isEmpty()
 {
-    return this->first->next == nullptr;
+    return size == 0;
 }
 
 template <typename T>
@@ -154,3 +158,4 @@ void MySet<T>::print()
     }
     std::cout << "\n";
 }
+
