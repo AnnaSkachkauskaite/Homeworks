@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <QList>
 
 template <typename T>
 ///Class for set
@@ -17,51 +18,30 @@ public:
     ///Returns size of the set
     int getSize();
     bool isEmpty();
-    MySet<T> intersection(MySet<T> *secSet);
-    MySet<T> unification( MySet<T> *secSet);
+    MySet<T> intersection(MySet<T> secSet);
+    MySet<T> unification(MySet<T> secSet);
     void print();
 private:
-    struct SetElement
-        {
-            T value;
-            SetElement *next;
-        };
-        SetElement *first;
-        int size;
+    QList<T> list;
 };
 
 template <typename T>
 MySet<T>::MySet()
 {
-    this->first = new SetElement();
-    this->first->next = nullptr;
-    this->size = 0;
 }
 
 template <typename T>
 MySet<T>::~MySet()
 {
-    SetElement *tmp = this->first;
-    SetElement *delValue = tmp;
-    while (tmp)
-    {
-        delValue = tmp;
-        tmp = tmp->next;
-        delete(delValue);
-     }
+    list.clear();
 }
+
 
 template <typename T>
 void MySet<T>::incert(T value)
 {
-    SetElement *tmp = this->first;
-    while (tmp->next != nullptr)
-        tmp = tmp->next;
-    SetElement *addValue = new SetElement;
-    addValue->value = value;
-    addValue->next = tmp->next;
-    tmp->next = addValue;
-    ++size;
+    if (!list.contains(value))
+        list.push_back(value);
 }
 
 template <typename T>
@@ -69,93 +49,55 @@ void MySet<T>::del(T value)
 {
     if (!(this->isFind(value)))
         return;
-    SetElement *tmp = this->first->next;
-    while (tmp->value != value)
-        tmp = tmp->next;
-    SetElement *delValue = tmp;
-    tmp = tmp->next;
-    delete(delValue);
-    --size;
+    list.removeOne(value);
 
 }
 
 template <typename T>
 bool MySet<T>::isFind(T value)
 {
-    bool contains = false;
-    if (this->isEmpty())
-        return false;
-    SetElement *tmp = this->first;
-    while ((!contains) || (tmp->next != nullptr))
-    {
-        if (tmp->value == value)
-            contains = true;
-        if (contains)
-            return true;
-        tmp = tmp->next;
-    }
-    return false;
+    return list.contains(value);
 }
 
 template <typename T>
 bool MySet<T>::isEmpty()
 {
-    return size == 0;
+    return list.size() == 0;
 }
 
 template <typename T>
 int MySet<T>::getSize()
 {
-    return this->size;
+    return list.size();
 }
 
 template <typename T>
-MySet<T> MySet<T>::intersection( MySet<T> *secSet)
+MySet<T> MySet<T>::intersection( MySet<T> secSet)
 {
-    SetElement *tmp = this->first;
-    MySet *result = new MySet();
-    while(tmp->next != nullptr)
-    {
-        if(secSet->isFind(tmp->value))
-            result->incert(tmp->value);
-        tmp = tmp->next;
-
-    }
+    MySet<T> result;
+    for (int i = 0; i < list.size(); ++i)
+        if (secSet.isFind(list[i]))
+            result.incert(list[i]);
     return result;
 }
 
 template <typename T>
-MySet<T> MySet<T>::unification( MySet<T> *secSet)
+MySet<T> MySet<T>::unification( MySet<T> secSet)
 {
-    SetElement *tmp = this->first;
-    MySet *result = new MySet();
-    while(tmp->next != nullptr)
-    {
-        result->incert(tmp->value);
-        tmp = tmp->next;
-
-    }
-    delete tmp;
-    tmp = secSet->first;
-    while(tmp->next != nullptr)
-    {
-        if(!(result->isFind(tmp->value)))
-            result->incert(tmp->value);
-        tmp = tmp->next;
-
-    }
+    MySet<T> result;
+    for (int i = 0; i < list.size(); ++i)
+        result.incert(list[i]);
+    for (int i = 0; i < secSet.list.size(); ++i)
+        if(!result.isFind(secSet.list[i]))
+            result.incert(secSet.list[i]);
     return result;
 }
 
 template <typename T>
 void MySet<T>::print()
 {
-    SetElement *tmp = this->first;
-    while(tmp->next != nullptr)
-    {
-        std::cout << tmp->value << " ";
-        tmp = tmp->next;
-    }
+    for (int i = 0; i < list.size(); ++i)
+        std::cout << list[i] << " ";
     std::cout << "\n";
 }
 
