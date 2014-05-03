@@ -1,10 +1,5 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2014-03-19T13:47:08
-#
-#-------------------------------------------------
-
 QT       += core gui
+QT       += testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,12 +11,16 @@ SOURCES += main.cpp\
         ubercalculator.cpp \
     stack.cpp \
     pointstack.cpp \
-    calculator.cpp
+    calc.cpp \
+    calculator.cpp \
+    calculatortest.cpp
 
 HEADERS  += ubercalculator.h \
     stack.h \
     pointstack.h \
-    calculator.h
+    calc.h \
+    calculator.h \
+    calculatortest.h
 
 FORMS    += ubercalculator.ui
 

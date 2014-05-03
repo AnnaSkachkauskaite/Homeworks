@@ -22,8 +22,12 @@ private:
     QSignalMapper *signalMapper;
 
 private slots:
+    ///Adding symbols to lineEdit
     void addToLine(QString str);
+    ///Computing value of the expression from lineEdit
     void getResult();
+    ///Clear lineEdit
+    void clearLine();
 
 };
 

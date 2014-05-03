@@ -1,13 +1,12 @@
 #pragma once
+#include "calc.h"
+#include "pointstack.h"
+#include <QString>
 
-int numb(char a);
+class Calculator
+{
+public:
+    Calculator();
+    int calculate(QString str);
+};
 
-int calculate(int a, int b, char sighn);
-
-int priority(char a);
-
-bool isNumb(char a);
-
-bool isSighn(char a);
-
-int calc (char*);

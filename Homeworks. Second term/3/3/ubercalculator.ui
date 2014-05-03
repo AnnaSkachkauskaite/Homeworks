@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>392</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>UberCalculator</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -38,8 +41,8 @@
      <rect>
       <x>30</x>
       <y>89</y>
-      <width>361</width>
-      <height>171</height>
+      <width>320</width>
+      <height>112</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -148,6 +151,13 @@
        </property>
       </widget>
      </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="clearButton">
+       <property name="text">
+        <string>C</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -156,7 +166,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>392</width>
      <height>21</height>
     </rect>
    </property>
