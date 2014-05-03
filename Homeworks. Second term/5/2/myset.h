@@ -10,7 +10,7 @@ public:
     MySet();
     ~MySet();
     ///Insert value into the set
-    void incert(T value);
+    void insert(T value);
     ///Delete value from the set
     void del(T value);
     ///Is the set contains given element
@@ -18,8 +18,8 @@ public:
     ///Returns size of the set
     int getSize();
     bool isEmpty();
-    MySet<T> intersection(MySet<T> secSet);
-    MySet<T> unification(MySet<T> secSet);
+    MySet<T> intersection(MySet<T> &secSet);
+    MySet<T> unification(MySet<T> &secSet);
     void print();
 private:
     QList<T> list;
@@ -38,7 +38,7 @@ MySet<T>::~MySet()
 
 
 template <typename T>
-void MySet<T>::incert(T value)
+void MySet<T>::insert(T value)
 {
     if (!list.contains(value))
         list.push_back(value);
@@ -72,24 +72,24 @@ int MySet<T>::getSize()
 }
 
 template <typename T>
-MySet<T> MySet<T>::intersection( MySet<T> secSet)
+MySet<T> MySet<T>::intersection(MySet<T> &secSet)
 {
     MySet<T> result;
     for (int i = 0; i < list.size(); ++i)
         if (secSet.isFind(list[i]))
-            result.incert(list[i]);
+            result.insert(list[i]);
     return result;
 }
 
 template <typename T>
-MySet<T> MySet<T>::unification( MySet<T> secSet)
+MySet<T> MySet<T>::unification(MySet<T> &secSet)
 {
     MySet<T> result;
     for (int i = 0; i < list.size(); ++i)
-        result.incert(list[i]);
+        result.insert(list[i]);
     for (int i = 0; i < secSet.list.size(); ++i)
         if(!result.isFind(secSet.list[i]))
-            result.incert(secSet.list[i]);
+            result.insert(secSet.list[i]);
     return result;
 }
 

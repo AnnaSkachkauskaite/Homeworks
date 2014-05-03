@@ -14,48 +14,57 @@ private slots:
 
     void emptySetTest()
     {
+        MySet<int> set;
         QVERIFY(set.getSize() == 0);
     }
 
     void addElemTest()
     {
-        set.incert(1);
+        MySet<int> set;
+        set.insert(1);
         QVERIFY(set.isFind(1));
     }
 
     void deleteElemTest()
     {
-        set.del(1);
-        QVERIFY(!(set.isFind(1)));
+        MySet<int> set;
+        set.insert(2);
+        set.del(2);
+        QVERIFY(!(set.isFind(2)));
     }
 
     void addTwoElemTest()
     {
-        set.incert(1);
-        set.incert(4);
+        MySet<int> set;
+        set.insert(1);
+        set.insert(4);
         QVERIFY(set.getSize() == 2);
     }
 
     void unificationTwoSetsTest()
     {
+        MySet<int> set;
+        set.insert(1);
+        set.insert(4);
         MySet<int> newSet;
-        newSet.incert(5);
-        newSet.incert(7);
+        newSet.insert(5);
+        newSet.insert(7);
         set = set.unification(newSet);
         QVERIFY(set.isFind(5));
     }
 
      void intersectionTwoSetsTest()
      {
+         MySet<int> set;
+         set.insert(1);
+         set.insert(4);
          MySet<int> newSet;
-         newSet.incert(8);
-         newSet.incert(3);
+         newSet.insert(8);
+         newSet.insert(3);
          set = set.intersection(newSet);
          QVERIFY(set.isEmpty());
      }
 
-private:
-    MySet<int> set;
 
 };
 
