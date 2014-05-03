@@ -1,6 +1,7 @@
 #include <QTextStream>
 #include <iostream>
 #include "hashtable.h"
+#include "hashtabletest.h"
 
 using namespace std;
 
@@ -45,6 +46,8 @@ void changeHashFunc(HashTable *myTable)
 
 int main()
 {
+    HashTableTest test;
+    QTest::qExec(&test);
     HashTable *myTable = new HashTable(1000, new HashFunction(239));
     cout <<"Hash function value is "<< myTable->hashValue() << "\n\nCommand list\n1 - print - prints HashTable \n2 - add word to hashtable \n3 - delete word from hashtable \n4 - checks if hastable contaitns word \n5 - shows statistics for table \n6 - change hash function \n";
     cout << "0 - exit programm \n";

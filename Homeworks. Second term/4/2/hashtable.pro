@@ -1,6 +1,7 @@
 QT       += core
 
 QT       -= gui
+QT       += testlib
 
 TARGET = hashtable
 CONFIG   += console
@@ -12,8 +13,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     hashfunction.cpp \
-    hashtable.cpp
+    hashtable.cpp \
+    hashtabletest.cpp
 
 HEADERS += \
     hashfunction.h \
-    hashtable.h
+    hashtable.h \
+    hashtabletest.h
