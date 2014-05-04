@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 
+///Class for element of calcualtor tree
 class TreeElement
 {
 public:
@@ -9,6 +10,7 @@ public:
     {
     }
     virtual int getResult() = 0;
+    ///Output hierarchica tree expression
     virtual string toString() = 0;
 };
 

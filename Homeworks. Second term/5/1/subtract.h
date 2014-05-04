@@ -1,7 +1,7 @@
 #pragma once
 #include "treeelement.h"
 
-//Node for subtractoin
+///Node for subtractoin
 class Subtract : public TreeElement
 {
 public:

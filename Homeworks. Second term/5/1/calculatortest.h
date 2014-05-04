@@ -10,31 +10,42 @@ public:
     explicit CalculatorTest(QObject *parent = 0);
 
 private slots:
-    void initTestCase()
+    void init()
     {
         calculator = new Calculator();
-        result = calculator->calc("(* (+ 1 1) 2)");
     }
 
-    void resultTest()
+    void calculatorTest1()
     {
+        TreeElement *result = calculator->calc("(* (+ 1 1) 2)");
         QVERIFY(result->getResult() == 4);
-    }
-
-    void stringTest()
-    {
         QVERIFY(result->toString() == "( * ( + 1 1 ) 2 )");
+        delete result;
     }
 
-    void cleanupTestCase()
+    void calculatorTest2()
+    {
+        TreeElement *result = calculator->calc("(/ (* 3 4) 2)");
+        QVERIFY(result->getResult() == 6);
+        QVERIFY(result->toString() == "( / ( * 3 4 ) 2 )");
+        delete result;
+    }
+
+    void calculatorTest3()
+    {
+        TreeElement *result = calculator->calc("(- (* 10 3) 2)");
+        QVERIFY(result->getResult() == 28);
+        QVERIFY(result->toString() == "( - ( * 10 3 ) 2 )");
+        delete result;
+    }
+
+    void cleanup()
     {
         delete calculator;
-        delete result;
     }
 
 private:
     Calculator *calculator;
-    TreeElement *result;
 };
 
 

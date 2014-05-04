@@ -67,7 +67,7 @@ TreeElement* Calculator::calc(string input)
         return (new Sum(left, right));
     }
 
-    if (isMul(input[pos]))
+    else if (isMul(input[pos]))
     {
         ++pos;
         left = calc(input);
@@ -75,7 +75,7 @@ TreeElement* Calculator::calc(string input)
         return (new Mult(left, right));
     }
 
-    if (isDiv(input[pos]))
+    else if (isDiv(input[pos]))
     {
         ++pos;
         left = calc(input);
@@ -83,7 +83,7 @@ TreeElement* Calculator::calc(string input)
         return (new Div(left, right));
     }
 
-    if (isMinus(input[pos]))
+    else if (isMinus(input[pos]))
     {
         ++pos;
         left = calc(input);
