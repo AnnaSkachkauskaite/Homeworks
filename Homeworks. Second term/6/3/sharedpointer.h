@@ -1,4 +1,6 @@
 #pragma once
+
+///Class for smart pointer
 template <typename T>
 class SharedPointer
 {
@@ -18,13 +20,16 @@ public:
         ++pointer->count;
     }
     ~SharedPointer();
+    ///Returns pointer
     T *getPointer();
+    ///Number of links
     int getCount();
+    ///Override operation =
     SharedPointer& operator= (SharedPointer &ptr)
     {
         if (pointer != ptr.pointer)
         {
-            --pointer->count;
+            delete pointer;
             pointer = ptr.pointer;
             ++pointer->count;
         }
