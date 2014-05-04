@@ -29,15 +29,17 @@ private slots:
 
     void delElemTest()
     {
-        list->deleteValue(2);
-         QVERIFY(!list->isFind(2));
+        list->addValue(3);
+        list->deleteValue(3);
+         QVERIFY(!list->isFind(3));
     }
 
     void addDuplicateElemTest()
     {
+        list->addValue(4);
         try
         {
-            list->addToUniqueList(1);
+            list->addToUniqueList(4);
         }
         catch (const Exeption &ex)
         {
@@ -47,9 +49,11 @@ private slots:
 
     void deleteNonexistentElemTest()
     {
+        list->addValue(6);
+        list->deleteValue(6);
         try
         {
-            list->delFromUniqueList(4);
+            list->delFromUniqueList(6);
         }
         catch (const Exeption &ex)
         {

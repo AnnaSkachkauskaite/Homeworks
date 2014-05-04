@@ -1,5 +1,6 @@
 #pragma once
 
+///Class for exeptions
 class Exeption
 {
 public:
