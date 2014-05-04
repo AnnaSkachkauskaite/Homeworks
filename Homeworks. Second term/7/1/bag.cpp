@@ -27,6 +27,8 @@ void Bag::remove(int value)
     {
         --set[value];
         --size;
+        if(set[value] == 0)
+            set.erase(value);
     }
 }
 
