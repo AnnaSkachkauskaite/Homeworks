@@ -4,13 +4,14 @@
 class ArrayList : public List
 {
 public:
-	ArrayList();
-	void addValue(int value);
-	void deleteValue(int numb);
-	void printList();
+    ArrayList();
+    void addValue(int value);
+    void deleteValue(int numb);
+    void printList();
+    int getSize();
+    bool isFind(int numb);
 
 private:
-	int size;
-	int arr[1000];
+    int size;
+    int arr[1000];
 };
-
