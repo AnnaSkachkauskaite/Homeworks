@@ -1,5 +1,6 @@
 #pragma once
 
+///Class for using stack
 class Stack
 {
 public:

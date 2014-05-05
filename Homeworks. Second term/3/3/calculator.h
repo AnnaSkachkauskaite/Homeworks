@@ -3,6 +3,7 @@
 #include "pointstack.h"
 #include <QString>
 
+///Class for computing result
 class Calculator
 {
 public:
