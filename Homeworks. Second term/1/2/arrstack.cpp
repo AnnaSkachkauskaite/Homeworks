@@ -6,22 +6,23 @@ ArrayStack::ArrayStack() : size(-1), Stack()
 
 void ArrayStack::push(char value)
 {
-	++size;
-	stack[size] = value;
+    ++size;
+    stack[size] = value;
 }
 
 char ArrayStack::pop()
 {
-	--size;
-	return stack[size + 1];
+    --size;
+    return stack[size + 1];
 }
 
 char ArrayStack::getTop()
 {
-	return stack[size];
+    return stack[size];
 }
 
 bool ArrayStack::isEmpty()
 {
-	return size == -1;
+    return size == -1;
 }
+

@@ -4,19 +4,19 @@
 class PointerStack : public Stack
 {
 public:
-	PointerStack();
-	~PointerStack();
-	void push(char value);
-	char getTop();
-	char pop();
-	bool isEmpty();
+    PointerStack();
+    ~PointerStack();
+    void push(char value);
+    char getTop();
+    char pop();
+    bool isEmpty();
 
 private:
-	struct StackElement                
-	{ 
-		char symbol;
-		StackElement *next;
-	};
-	StackElement *top;
+    struct StackElement
+    {
+        char symbol;
+        StackElement *next;
+    };
+    StackElement *top;
 };
 
