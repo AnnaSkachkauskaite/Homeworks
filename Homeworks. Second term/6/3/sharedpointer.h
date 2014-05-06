@@ -24,13 +24,13 @@ public:
     T *getPointer();
     ///Number of links
     int getCount();
-    void incCount();
+    void decCount();
     ///Override operation =
     SharedPointer& operator= (SharedPointer &ptr)
     {
         if (pointer != ptr.pointer)
         {
-            this->incCount();
+            this->decCount();
             pointer = ptr.pointer;
             ++pointer->count;
         }
@@ -50,7 +50,7 @@ private:
 template <typename T>
 SharedPointer<T>::~SharedPointer()
 {
-    this->incCount();
+    this->decCount();
 }
 
 template <typename T>
@@ -66,7 +66,7 @@ T* SharedPointer<T>::getPointer()
 }
 
 template <typename T>
-void SharedPointer<T>::incCount()
+void SharedPointer<T>::decCount()
 {
     --pointer->count;
     if (pointer->count < 1)
