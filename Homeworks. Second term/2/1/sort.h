@@ -4,6 +4,7 @@
 class Sort
 {
 public:
-	/// Abbstract method which sort an array with some size using specific algorithm
-	virtual void sort(int arr[], int size) = 0;
+    /// Abbstract method which sort an array with some size using specific algorithm
+    virtual void sort(int arr[], int size) = 0;
 };
+

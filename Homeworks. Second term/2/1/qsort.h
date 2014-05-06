@@ -6,7 +6,8 @@ class QSort : public Sort
 {
 public:
 
-	/// Abbstract method which sort an array with some size using quick sort
-	void sort(int arr[], int size);
+    /// Abbstract method which sort an array with some size using quick sort
+    void sort(int arr[], int size);
 
 };
+
