@@ -7,8 +7,8 @@ class FileWriter : public Writer
 {
 public:
 
-	/// Method which print an array to console
-	void printMatrix (int **arr, int size);
-	
-	
+    /// Method which print an array to console
+    void printMatrix (int **arr, int size);
+
+
 };
