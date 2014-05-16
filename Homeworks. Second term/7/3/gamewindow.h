@@ -29,6 +29,8 @@ private:
     QMap <QPushButton *, QPair<int, int>> buttonsPosition;
     TicTacToe tictactoe;
     void resizeEvent(QResizeEvent *resized);
+    int size;
+    bool isSmallField;
 };
 
 

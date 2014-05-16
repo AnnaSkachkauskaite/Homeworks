@@ -2,21 +2,29 @@
 
 TicTacToe::TicTacToe()
 {
-    for (int i = 0; i < 3; ++i)
-        for (int j = 0; j < 3; ++j)
+    size = 3;
+    winNumber = 3;
+    buttons = new CellState *[size];
+    for (int i = 0; i < size; ++i)
+        buttons[i] = new CellState [size];
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size; ++j)
             buttons[i][j] = empty;
     move = moveX;
     currState = inProgress;
 
 }
 
-QString TicTacToe::getCellState(int x, int y)
+TicTacToe::~TicTacToe()
 {
-    if (buttons[x][y] == empty)
-        return " ";
-    if (buttons[x][y] == X)
-        return "X";
-    return "O";
+    for (int i = 0; i < size; ++i)
+        delete[] buttons[i];
+    delete[] buttons;
+}
+
+TicTacToe::CellState TicTacToe::getCellState(int x, int y)
+{
+    return buttons[x][y];
 }
 
 bool TicTacToe::isWinO()
@@ -64,40 +72,112 @@ void TicTacToe::changeState()
 {
     if (currState != inProgress)
         return;
-    if (buttons[0][0] == buttons[1][1] && buttons[1][1] == buttons[2][2] && buttons[2][2] != empty)
-    {
-        if (buttons[2][2] == X)
-            currState = WinsX;
-        else
-            currState = WinsO;
-    }
+    for (int i = 0; i < size - winNumber + 1; i++)
+      for (int j = winNumber - 1; j < size; j++)
+      {
+        bool win = true;
+        for (int k = 0; k < winNumber - 1; k++)
+          if (buttons[i + k][j - k] == empty || buttons[i + k][j - k] != buttons[i + k + 1][j - k - 1])
+          {
+            win = false;
+            break;
+          }
+        if (!win)
+          continue;
 
-    if (buttons[0][2] == buttons[1][1] && buttons[1][1] == buttons[2][0] && buttons[2][0] != empty)
-    {
-        if (buttons[2][0] == X)
-            currState = WinsX;
+        if (buttons[i][j] == X)
+          currState = WinsX;
         else
-            currState = WinsO;
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        if (buttons[i][0] == buttons[i][1] && buttons[i][1] == buttons[i][2] && buttons[i][2] != empty)
+          currState = WinsO;
+      }
+      for (int i = 0; i < size; i++)
+      {
+        for (int j = 0; j < size - winNumber + 1; j++)
         {
-            if (buttons[i][2] == X)
-                currState = WinsX;
-            else
-                currState = WinsO;
-            return;
+          bool win = true;
+          for (int k = 0; k < winNumber - 1; k++)
+            if (buttons[i][j + k] == empty || buttons[i][j + k] != buttons[i][j + k + 1])
+            {
+              win = false;
+              break;
+            }
+          if (!win)
+            continue;
+
+          if (buttons[i][j] == X)
+            currState = WinsX;
+          else
+            currState = WinsO;
+          return;
+        }
+      }
+
+      for (int i = 0; i < size; i++)
+        for (int j = 0; j < size - winNumber + 1; j++)
+        {
+          bool win = true;
+          for (int k = 0; k < winNumber - 1; k++)
+            if (buttons[j + k][i] == empty || buttons[j + k][i] != buttons[j + k + 1][i])
+            {
+              win = false;
+              break;
+            }
+
+          if (!win)
+            continue;
+
+          if (buttons[i][j] == X)
+            currState = WinsX;
+          else
+            currState = WinsO;
+          return;
+      }
+
+      for (int i = 0; i < size - winNumber + 1; i++)
+        for (int j = 0; j < size - winNumber + 1; j++)
+        {
+          bool win = true;
+          for (int k = 0; k < winNumber - 1; k++)
+            if (buttons[i + k][j + k] == empty || buttons[i + k][j + k] != buttons[i + k + 1][j + k + 1])
+            {
+              win = false;
+              break;
+            }
+          if (!win)
+            continue;
+
+          if (buttons[i][j] == X)
+            currState = WinsX;
+          else
+            currState = WinsO;
+          return;
         }
 
-        if (buttons[0][i] == buttons[1][i] && buttons[1][i] == buttons[2][i] && buttons[2][i] != empty)
-        {
-            if (buttons[2][i] == X)
-                currState = WinsX;
-            else
-                currState = WinsO;
-            return;
-        }
     }
+
+void TicTacToe::changeFieldSize(int newSize)
+{
+    for (int i = 0; i < size; ++i)
+        delete[] buttons[i];
+    delete[] buttons;
+
+    size = newSize;
+
+    buttons = new CellState *[size];
+    for (int i = 0; i < size; ++i)
+        buttons[i] = new CellState [size];
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size; ++j)
+            buttons[i][j] = empty;
+    winNumber = 5;
+    move = moveX;
+}
+
+QString TicTacToe::getCellText(int x, int y)
+{
+    if (buttons[x][y] == empty)
+            return " ";
+        if (buttons[x][y] == X)
+            return "X";
+        return "O";
 }

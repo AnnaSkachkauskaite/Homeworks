@@ -6,10 +6,14 @@
 
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::GameWindow)
+    ui(new Ui::GameWindow),
+    size(3),
+    isSmallField(true),
+    tictactoe()
 {
     ui->setupUi(this);
     createButtons();
+    connect(ui->generateButton, &QPushButton::clicked, this, &GameWindow::createButtons);
 }
 
 GameWindow::~GameWindow()
@@ -19,8 +23,21 @@ GameWindow::~GameWindow()
 
 void GameWindow::createButtons()
 {
-    for (int i = 0; i < 3; ++i)
-        for (int j = 0; j < 3; ++j)
+    if (!isSmallField)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                delete ui->gridLayout->itemAtPosition(i, j)->widget();
+            }
+        }
+    size = ui->sizeSpinBox->value();
+    tictactoe.changeFieldSize(size);
+    }
+
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size; ++j)
         {
             QPushButton *button = new QPushButton;
             button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -29,6 +46,7 @@ void GameWindow::createButtons()
             buttonsPosition[button] = qMakePair(i, j);
             connect(button, &QPushButton::clicked, this, &GameWindow::buttonClick);
         }
+    isSmallField = false;
 }
 
 void GameWindow::buttonClick()
@@ -39,7 +57,7 @@ void GameWindow::buttonClick()
     int i = buttonsPosition[button].first;
     int j = buttonsPosition[button].second;
     tictactoe.makeMove(i, j);
-    button->setText(tictactoe.getCellState(i, j));
+    button->setText(tictactoe.getCellText(i, j));
     tictactoe.changeState();
     button->setEnabled(false);
     if (tictactoe.isFinished())
@@ -53,16 +71,16 @@ void GameWindow::buttonClick()
 void GameWindow::resizeEvent(QResizeEvent *resized)
 {
     QMainWindow::resizeEvent(resized);
-    int size = std::min(geometry().height(), geometry().width());
+    int sizeWind = std::min(geometry().height(), geometry().width());
     QFont buttonFont;
-    buttonFont.setPixelSize(size * size / 3000);
+    buttonFont.setPixelSize(sizeWind * sizeWind / (1000 * size));
     buttonFont.setBold(true);
-    for (int i = 0; i < 3; ++i)
-        for (int j = 0; j < 3; ++j)
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size; ++j)
         {
             QPushButton *button = dynamic_cast<QPushButton*>(ui->gridLayout->itemAtPosition(i, j)->widget());
             button->setFont(buttonFont);
-            button->setText(tictactoe.getCellState(buttonsPosition[button].first, buttonsPosition[button].second));
+            button->setText(tictactoe.getCellText(i, j));
 
         }
 

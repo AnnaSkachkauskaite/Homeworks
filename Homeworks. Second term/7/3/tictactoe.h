@@ -6,7 +6,15 @@ class TicTacToe
 {
 public:
     TicTacToe();
-    QString getCellState(int x, int y);
+    ~TicTacToe();
+    enum CellState
+    {
+        empty,
+        X,
+        O
+    };
+    CellState getCellState(int x, int y);
+    QString getCellText(int x, int y);
     ///Returns result of a game (X or O wins)
     QString getResult();
 
@@ -18,14 +26,12 @@ public:
     ///If user put X or O
     void makeMove(int x, int y);
     void changeState();
-private:
 
-    enum CellState
-    {
-        empty,
-        X,
-        O
-    };
+
+    void changeFieldSize(int newSize);
+    int getFieldSize();
+
+private:
 
     enum GameState
     {
@@ -40,7 +46,7 @@ private:
         moveO
     };
 
-    CellState buttons[3][3];
+    CellState **buttons;
     GameState currState;
     Move move;
 
@@ -59,6 +65,8 @@ private:
         return moveX;
 
     }
+    int size;
+    int winNumber;
 
 };
 
