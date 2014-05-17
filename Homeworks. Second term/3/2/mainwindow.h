@@ -23,9 +23,7 @@ private:
     Calculator calculator;
 
 private slots:
-    ///Getting result for widget
     void getResult();
 };
 
 #endif // MAINWINDOW_H
-
