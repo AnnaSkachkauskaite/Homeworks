@@ -13,13 +13,35 @@ Server::Server(QWidget *parent):
     messageSize(0)
 {
     statusLabel = new QLabel;
+
     conversation = new QTextEdit;
     conversation->setReadOnly(true);
+
     messageText = new QLineEdit;
-    sendButton = new QPushButton(tr("Send"));
-    sendButton->setEnabled(false);
+
     quitButton = new QPushButton(tr("Quit"));
     quitButton->setAutoDefault(false);
+    sendButton = new QPushButton(tr("Send"));
+    sendButton->setEnabled(false);
+
+    QHBoxLayout *messageLayout = new QHBoxLayout;
+    messageLayout->addWidget(messageText);
+    messageLayout->addWidget(sendButton);
+    QHBoxLayout *quitButtonLayout = new QHBoxLayout;
+    quitButtonLayout->addStretch(1);
+    quitButtonLayout->addWidget(quitButton);
+    quitButtonLayout->addStretch(1);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(statusLabel);
+    mainLayout->addWidget(conversation);
+    mainLayout->addLayout(messageLayout);
+    mainLayout->addLayout(quitButtonLayout);
+    setLayout(mainLayout);
+
+    setWindowTitle(tr("Chat"));
+
+
+
 
     QNetworkConfigurationManager manager;
     if (manager.capabilities() & QNetworkConfigurationManager::NetworkSessionRequired) {
@@ -48,20 +70,7 @@ Server::Server(QWidget *parent):
         connect(sendButton, SIGNAL(clicked()), this, SLOT(send()));
         connect(tcpServer, SIGNAL(newConnection()), this, SLOT(acceptClientConnection()));
 
-        QHBoxLayout *messageLayout = new QHBoxLayout;
-        messageLayout->addWidget(messageText);
-        messageLayout->addWidget(sendButton);
-        QHBoxLayout *quitButtonLayout = new QHBoxLayout;
-        quitButtonLayout->addStretch(1);
-        quitButtonLayout->addWidget(quitButton);
-        quitButtonLayout->addStretch(1);
-        QVBoxLayout *mainLayout = new QVBoxLayout;
-        mainLayout->addWidget(statusLabel);
-        mainLayout->addLayout(quitButtonLayout);
-        setLayout(mainLayout);
 
-
-        setWindowTitle(tr("Chat"));
 }
 
 void Server::sessionOpened()
