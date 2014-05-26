@@ -23,12 +23,13 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = new QGraphicsScene();
     ui->graphicsView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
-    gun = new Cannon(ui->graphicsView->width(), scene->width(), scene->height());
+    gun = new Cannon(ui->graphicsView->width() * 2, scene->width() * 3, scene->height() * 3);
     scene->addItem(gun);
 
     ball= new Bullet(gun->getWidth(), 50.0, 45.0,
                          gun->getRadius() + gun->getHeigh(),
                          (double)scene->width(), (double)scene->height());
+    maxRadius = ball->getRadius();
     scene->addItem(ball);
 
     target = new Target(40, scene->width(), scene->height());
@@ -47,7 +48,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->shoot, &QPushButton::clicked, this, &MainWindow::onShootClicked);
     connect(ui->powerDown, &QPushButton::clicked, this, &MainWindow::onPowerDownClicked);
     connect(ui->powerUp, &QPushButton::clicked, this, &MainWindow::onPowerUpClicked);
+    connect(ui->small, &QPushButton::clicked, this, &MainWindow::onSmallClicked);
+    connect(ui->medium, &QPushButton::clicked, this, &MainWindow::onMediumClicked);
+    connect(ui->large, &QPushButton::clicked, this, &MainWindow::onLargeClicked);
     connect(&timer, &QTimer::timeout, this, &MainWindow::timeOut);
+
+
     showMaximized();
 }
 
@@ -141,4 +147,19 @@ void MainWindow::onPowerUpClicked()
         return;
     ball->speedUp();
     ui->progressBarSpeed->setValue(ball->getSpeed());
+}
+
+void MainWindow::onSmallClicked()
+{
+    ball->setRadius(maxRadius / 3);
+}
+
+void MainWindow::onMediumClicked()
+{
+    ball->setRadius(maxRadius / 2);
+}
+
+void MainWindow::onLargeClicked()
+{
+    ball->setRadius(maxRadius);
 }

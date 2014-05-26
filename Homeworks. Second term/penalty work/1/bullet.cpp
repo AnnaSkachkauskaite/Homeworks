@@ -84,6 +84,16 @@ int Bullet::getSpeed()
     return result;
 }
 
+int Bullet::getRadius()
+{
+    return radiusBall;
+}
+
+void Bullet::setRadius(int radius)
+{
+    radiusBall = radius;
+}
+
 void Bullet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     if (!timer.isValid())

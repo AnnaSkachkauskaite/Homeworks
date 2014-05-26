@@ -41,6 +41,10 @@ public:
     QPushButton *shoot;
     QPushButton *powerUp;
     QPushButton *powerDown;
+    QLabel *label_3;
+    QPushButton *small;
+    QPushButton *medium;
+    QPushButton *large;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_2;
     QProgressBar *progressBarSpeed;
@@ -97,6 +101,26 @@ public:
 
         verticalLayout->addWidget(powerDown);
 
+        label_3 = new QLabel(centralWidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        verticalLayout->addWidget(label_3);
+
+        small = new QPushButton(centralWidget);
+        small->setObjectName(QStringLiteral("small"));
+
+        verticalLayout->addWidget(small);
+
+        medium = new QPushButton(centralWidget);
+        medium->setObjectName(QStringLiteral("medium"));
+
+        verticalLayout->addWidget(medium);
+
+        large = new QPushButton(centralWidget);
+        large->setObjectName(QStringLiteral("large"));
+
+        verticalLayout->addWidget(large);
+
 
         gridLayout->addLayout(verticalLayout, 0, 1, 1, 1);
 
@@ -143,6 +167,10 @@ public:
         shoot->setText(QApplication::translate("MainWindow", "shoot", 0));
         powerUp->setText(QApplication::translate("MainWindow", "power up", 0));
         powerDown->setText(QApplication::translate("MainWindow", "power down", 0));
+        label_3->setText(QApplication::translate("MainWindow", "Choose cannonball size", 0));
+        small->setText(QApplication::translate("MainWindow", "Small", 0));
+        medium->setText(QApplication::translate("MainWindow", "Medium", 0));
+        large->setText(QApplication::translate("MainWindow", "Large", 0));
         label_2->setText(QApplication::translate("MainWindow", "Power:", 0));
     } // retranslateUi
 

@@ -29,6 +29,10 @@ private slots:
     void onPowerDownClicked();
     void onPowerUpClicked();
 
+    void onSmallClicked();
+    void onMediumClicked();
+    void onLargeClicked();
+
     void timeOut();
 
 private:
@@ -38,6 +42,7 @@ private:
     QGraphicsScene *scene;
     Cannon *gun;
     Bullet *ball;
+    int maxRadius;
     QTimer timer;
     Target *target;
     QGraphicsSimpleTextItem *textResult;

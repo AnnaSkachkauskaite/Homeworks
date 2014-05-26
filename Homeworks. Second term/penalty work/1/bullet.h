@@ -31,6 +31,8 @@ public:
     ///Return speed in current moment
     int getSpeed();
 
+    int getRadius();
+    void setRadius(int radius);
 
 private:
     void translate(int height);

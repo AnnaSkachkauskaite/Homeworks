@@ -12,6 +12,7 @@ Cannon::Cannon(int newRadius, int newWidth, int newHeight)
     height = radius / 2;
     widthRect = newWidth * 2;
     heightRect = newHeight * 2;
+    radius = radius / 2;
 }
 
 void Cannon::up()
