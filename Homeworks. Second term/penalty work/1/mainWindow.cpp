@@ -19,6 +19,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->shoot->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
     ui->powerDown->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
     ui->powerUp->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    ui->quit->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+    ui->shoot->setShortcut(QKeySequence::InsertParagraphSeparator);
+    ui->powerDown->setShortcut(QKeySequence::MoveToPreviousChar);
+    ui->powerUp->setShortcut(QKeySequence::MoveToNextChar);
+    ui->down->setShortcut(QKeySequence::MoveToNextLine);
+    ui->up->setShortcut(QKeySequence::MoveToPreviousLine);
+
 
     scene = new QGraphicsScene();
     ui->graphicsView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -41,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(scene);
     ui->progressBarSpeed->setValue(ball->getSpeed());
 
-    shortcutInitialize();
+    showFullScreen();
 
     connect(ui->up, &QPushButton::clicked, this, &MainWindow::onUpClicked);
     connect(ui->down, &QPushButton::clicked, this, &MainWindow::onDownClicked);
@@ -51,40 +59,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->small, &QPushButton::clicked, this, &MainWindow::onSmallClicked);
     connect(ui->medium, &QPushButton::clicked, this, &MainWindow::onMediumClicked);
     connect(ui->large, &QPushButton::clicked, this, &MainWindow::onLargeClicked);
+    connect(ui->quit, &QPushButton::clicked, this, &MainWindow::onQuitClicked);
     connect(&timer, &QTimer::timeout, this, &MainWindow::timeOut);
-
-
-    showMaximized();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete scene;
-    delete shortcutDown;
-    delete shortcutUp;
-    delete shortcutLeft;
-    delete shortcutRight;
-    delete shortcutPower;
 }
 
-void MainWindow::shortcutInitialize()
-{
-    shortcutLeft = new QShortcut(QKeySequence(QKeySequence::MoveToPreviousChar), this);
-    shortcutLeft->connect(shortcutLeft,SIGNAL(activated()),this,SLOT(onPowerDownClicked()));
-
-    shortcutRight = new QShortcut(QKeySequence(QKeySequence::MoveToNextChar), this);
-    shortcutRight->connect(shortcutRight,SIGNAL(activated()),this,SLOT(onPowerUpClicked()));
-
-    shortcutDown = new QShortcut(QKeySequence(QKeySequence::MoveToNextLine), this);
-    shortcutDown->connect(shortcutDown,SIGNAL(activated()),this,SLOT(onDownClicked()));
-
-    shortcutUp = new QShortcut(QKeySequence(QKeySequence::MoveToPreviousLine), this);
-    shortcutUp->connect(shortcutUp, SIGNAL(activated()), this, SLOT(onUpClicked()));
-
-    shortcutPower = new QShortcut(QKeySequence(QKeySequence::InsertParagraphSeparator), this);
-    shortcutPower->connect(shortcutPower,SIGNAL(activated()),this,SLOT(onShootClicked()));
-}
 
 void MainWindow::onUpClicked()
 {
@@ -103,6 +87,14 @@ void MainWindow::onDownClicked()
 void MainWindow::onShootClicked()
 {
     timer.start(10);
+    ui->shoot->setEnabled(false);
+    ui->up->setEnabled(false);
+    ui->down->setEnabled(false);
+    ui->powerDown->setEnabled(false);
+    ui->powerUp->setEnabled(false);
+    ui->small->setEnabled(false);
+    ui->medium->setEnabled(false);
+    ui->large->setEnabled(false);
 }
 
 void MainWindow::timeOut()
@@ -113,6 +105,14 @@ void MainWindow::timeOut()
     {
         timer.stop();
         ball->stopTimer();
+        ui->shoot->setEnabled(true);
+        ui->up->setEnabled(true);
+        ui->down->setEnabled(true);
+        ui->powerDown->setEnabled(true);
+        ui->powerUp->setEnabled(true);
+        ui->small->setEnabled(true);
+        ui->medium->setEnabled(true);
+        ui->large->setEnabled(true);
         if (target->getPosition().contains(ball->getPosition()))
         {
             textResult->setText("Great! Now try with smaller target");
@@ -162,4 +162,9 @@ void MainWindow::onMediumClicked()
 void MainWindow::onLargeClicked()
 {
     ball->setRadius(maxRadius);
+}
+
+void MainWindow::onQuitClicked()
+{
+    qApp->quit();
 }

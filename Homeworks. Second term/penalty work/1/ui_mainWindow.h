@@ -45,6 +45,7 @@ public:
     QPushButton *small;
     QPushButton *medium;
     QPushButton *large;
+    QPushButton *quit;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_2;
     QProgressBar *progressBarSpeed;
@@ -56,7 +57,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(400, 300);
+        MainWindow->resize(598, 388);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -121,6 +122,11 @@ public:
 
         verticalLayout->addWidget(large);
 
+        quit = new QPushButton(centralWidget);
+        quit->setObjectName(QStringLiteral("quit"));
+
+        verticalLayout->addWidget(quit);
+
 
         gridLayout->addLayout(verticalLayout, 0, 1, 1, 1);
 
@@ -144,7 +150,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 21));
+        menuBar->setGeometry(QRect(0, 0, 598, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -164,13 +170,14 @@ public:
         label->setText(QApplication::translate("MainWindow", "Turn cannon:", 0));
         up->setText(QApplication::translate("MainWindow", "up", 0));
         down->setText(QApplication::translate("MainWindow", "down", 0));
-        shoot->setText(QApplication::translate("MainWindow", "shoot", 0));
+        shoot->setText(QApplication::translate("MainWindow", "Shoot", 0));
         powerUp->setText(QApplication::translate("MainWindow", "power up", 0));
         powerDown->setText(QApplication::translate("MainWindow", "power down", 0));
         label_3->setText(QApplication::translate("MainWindow", "Choose cannonball size", 0));
         small->setText(QApplication::translate("MainWindow", "Small", 0));
         medium->setText(QApplication::translate("MainWindow", "Medium", 0));
         large->setText(QApplication::translate("MainWindow", "Large", 0));
+        quit->setText(QApplication::translate("MainWindow", "Quit", 0));
         label_2->setText(QApplication::translate("MainWindow", "Power:", 0));
     } // retranslateUi
 

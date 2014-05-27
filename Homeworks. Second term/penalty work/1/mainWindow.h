@@ -7,7 +7,7 @@
 #include "cannon.h"
 #include "bullet.h"
 #include "target.h"
-#include <QShortcut>
+
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +23,7 @@ public:
 
 private slots:
 
+    ///lots for working with buttons
     void onUpClicked();
     void onDownClicked();
     void onShootClicked();
@@ -32,25 +33,22 @@ private slots:
     void onSmallClicked();
     void onMediumClicked();
     void onLargeClicked();
+    void onQuitClicked();
 
     void timeOut();
 
 private:
-    void shortcutInitialize();
 
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     Cannon *gun;
     Bullet *ball;
+    ///For large cannonball
     int maxRadius;
     QTimer timer;
     Target *target;
+    ///Text
     QGraphicsSimpleTextItem *textResult;
 
-    QShortcut *shortcutUp;
-    QShortcut *shortcutDown;
-    QShortcut *shortcutLeft;
-    QShortcut *shortcutRight;
-    QShortcut *shortcutPower;
 
 };
