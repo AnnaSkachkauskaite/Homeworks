@@ -14,15 +14,21 @@ public:
 signals:
 
 private slots:
-    void Systemtest()
+    void FirstTest()
     {
         net.defaultSystem();
-        net.infSystem();
-        QVERIFY(net.numbOfInf() == net.numbOfComputers());
+        net.setTesting();
+        net.infectSystem();
+        result = net.getResult();
+        QVERIFY(result[0] == 1);
+        QVERIFY(result[1] == 2);
+        QVERIFY(result[2] == 4);
+        QVERIFY(result[3] == 3);
     }
 
 private:
     Net net;
+    QList<int> result;
 
 };
 

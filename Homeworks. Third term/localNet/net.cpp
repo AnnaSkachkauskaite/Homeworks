@@ -13,47 +13,54 @@ Net::Net()
 {
     QTime midnight(0,0,0);
     qsrand(midnight.secsTo(QTime::currentTime()));
+
+    isTesting = false;
+}
+
+void Net::setTesting()
+{
+    isTesting = true;
 }
 
 void Net::readData()
 {
-    cout << "Enter number of computers  ";
-    cin << numbOfComp;
-    cout << "Enter number of computers  " << endl;
-    for (int i = 0; i < numbOfComp; ++i)
-        for (int j = 0; j < numbOfComp; ++j)
-            cin << matrix[i][j];
+//    cout << "Enter number of computers  ";
+//    cin << numbOfComp;
+//    cout << "Enter number of computers  " << endl;
+//    for (int i = 0; i < numbOfComp; ++i)
+//        for (int j = 0; j < numbOfComp; ++j)
+//            cin << matrix[i][j];
 
-    cout << "Enter probability of infection of computers  "<< endl;
-    int tmp = 0;
-    for (int i = 0; i < numbOfComp; ++i)
-    {
-        cout << i << "computer  ";
-        cin << tmp;
-        computers[i].setProb(tmp);
-        computers[i].setInf(false);
+//    cout << "Enter probability of infection of computers  "<< endl;
+//    int tmp = 0;
+//    for (int i = 0; i < numbOfComp; ++i)
+//    {
+//        cout << i << "computer  ";
+//        cin << tmp;
+//        computers[i].setProb(tmp);
+//        computers[i].setInf(false);
 
-    }
+//    }
 
 
-    cout << "Enter number of infected computers  ";
-    cin << numbOfInfComp;
-    cout << "Enter numbers of infected computers  ";
-    for (int i = 0; i < numbOfInfComp; ++i)
-    {
+//    cout << "Enter number of infected computers  ";
+//    cin << numbOfInfComp;
+//    cout << "Enter numbers of infected computers  ";
+//    for (int i = 0; i < numbOfInfComp; ++i)
+//    {
 
-        cin << tmp;
-        computers[tmp].setInf(true);
-    }
+//        cin << tmp;
+//        computers[tmp].setInf(true);
+//    }
 
 
 }
 
-bool isInfPossible(Computer comp)
+bool Net::isInfPossible(int probability)
 {
-    if (rand() % 100 < comp.getProb())
-            return false;
-    return true;
+    if (isTesting)
+        return true;
+    return rand() % 100 > probability;
 }
 
 
@@ -62,9 +69,9 @@ void Net::makeMove()
     if (numbOfInfComp == 0)
     {
         for (int i = 0; i < numbOfComp; ++i)
-            if (isInfPossible(computers[i]))
+            if (isInfPossible(computers[i].getProb()))
             {
-                computers[i].setInf(true);
+                computers[i].setInfection(true);
                 result.append(i + 1);
                 ++numbOfInfComp;
                 return;
@@ -74,9 +81,9 @@ void Net::makeMove()
     for (int i = 0; i < numbOfComp; ++i)
         if (computers[i].isInfected)
             for (int j = 0; j < numbOfComp; ++j)
-                if (!computers[j].isInfected && matrix[i][j] == 1 && isInfPossible(computers[j]))
+                if (!computers[j].isInfected && matrix[i][j] == 1 && isInfPossible(computers[j].getProb()))
                 {
-                    computers[j].setInf(true);
+                    computers[j].setInfection(true);
                     result.append(j + 1);
                     ++numbOfInfComp;
                     return;
@@ -99,7 +106,7 @@ void Net::printList(QList<int> result)
 
 }
 
-void Net::infSystem()
+void Net::infectSystem()
 {
     for (int i = 0; i < numbOfComp; ++i)
         if (computers[i].isInfected && !result.contains(i+1))
@@ -144,7 +151,7 @@ void Net::defaultSystem()
     computers[4].setProb(22);
 
     for (int i = 0; i < numbOfComp; ++i)
-        computers[i].setInf(false);
+        computers[i].setInfection(false);
 }
 
 int Net::numbOfInf()
@@ -156,3 +163,9 @@ int Net::numbOfComputers()
 {
     return numbOfComp;
 }
+
+QList<int> Net::getResult()
+{
+    return result;
+}
+

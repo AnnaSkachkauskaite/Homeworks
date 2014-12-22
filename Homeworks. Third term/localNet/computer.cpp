@@ -5,7 +5,7 @@ Computer::Computer()
     this->isInfected = false;
 }
 
-void Computer::setInf(bool inf)
+void Computer::setInfection(bool inf)
 {
     this->isInfected = inf;
 }

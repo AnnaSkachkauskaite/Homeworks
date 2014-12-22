@@ -8,7 +8,7 @@ class Computer
 {
 public:
     Computer();
-    void setInf(bool);
+    void setInfection(bool);
     void setProb(int);
     ///Returns probability of infection
     int getProb();
