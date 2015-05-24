@@ -1,16 +1,19 @@
-findSum :: Int -> IO()
-findSum n = helper n 1 (concat[show(n), " = "])
+import Control.Monad
+printhelper :: [Integer] -> IO ()
+printhelper [] = return ()
+printhelper [x] = print x
+printhelper (x:xs) = do putStr $ show x; putStr " + "; printhelper xs
+
+findSum :: Integer -> IO()
+findSum n = helper n n []
 
 
-helper :: Int -> Int -> String -> IO()
-helper 0 m st = putStrLn(st)
-helper n m st = if (n == m) then 
-	helper 0 m (concat[st, show(n)])
-	else 
-		if (n < m) then 
+helper :: Integer -> Integer -> [Integer] -> IO()
+helper 0 m st =  printhelper st
+helper n m st = 
+		if (n < 0) then 
 			return()
 			else do 
-				helper (n - m) m (concat[st, show(m), " + "])
-				helper n (m + 1) st
+				when (n - m >= 0) $ helper (n - m) m (m:st)
+				when (m - 1 > 0) $ helper n (m - 1) st
 				return ()
-                           
