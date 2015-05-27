@@ -12,11 +12,16 @@ sign x = if (x > 0)
 help :: Int -> Int -> String
 help 0 n = ""
 help x 0 = show x
-help x 1 = sign x ++ show x ++ "X"
-help x n = sign x ++ show x ++ "X^" ++ show n
+help x 1 = if (x == 1) then "+X" else if (x == -1) then "-X" else sign x ++ show x ++ "X"
+help x n = if (x == 1) then "+X^"  ++ show n else if (x == -1) then "-X^"  ++ show n else sign x ++ show x ++ "X^" ++ show n
+
+
+removeplus :: String -> String
+removeplus ('+':xs) = xs
+removeplus s = s
 
 instance Show Polynomial where
-	show (Polynomial l) = getShow l 0
+	show (Polynomial l) = removeplus $ getShow l 0 
 					where
 						getShow [] n = ""
 						getShow (x : xs) n = help x n ++ getShow xs (n + 1)
@@ -62,13 +67,10 @@ mult (Polynomial p1) (Polynomial p2)= Polynomial [sum $ zipWith (*) (makeFull n 
 
 
 
-ex = Polynomial [1,-1,0,3] 
+
+
+ex = Polynomial [0,1,-1,0,3,1] 
     					
 main = do
     print $ show ex
-    print $ calc ex 0
-
-
-
-
-
+    print $ calc ex 1
