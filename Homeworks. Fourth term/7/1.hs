@@ -1,12 +1,13 @@
 import Control.Exception.Base
+import System.Directory
 
 type PhoneBook = [(String, [String])]
 
 findName :: String -> PhoneBook -> Maybe [String]
 findName number book = case result of
-	[] -> Nothing
-	_ -> Just (map (fst) result)
-	where result = filter (\(x,y) -> number `elem` y) book
+    [] -> Nothing
+    _ -> Just (map (fst) result)
+    where result = filter (\(x,y) -> number `elem` y) book
 
 addRecord :: (String, String) -> PhoneBook -> PhoneBook
 addRecord (name, number) book = case (lookup name book) of
@@ -16,12 +17,12 @@ addRecord (name, number) book = case (lookup name book) of
 
 menu :: IO ()
 menu = do
-	putStrLn "0 - exit"
-	putStrLn "1 name number - add record"
-	putStrLn "2 name - find number"
-	putStrLn "3 number - find name "
-	putStrLn "4 file - save to file"
-	putStrLn "5 file - read from file"
+    putStrLn "0 - exit"
+    putStrLn "1 name number - add record"
+    putStrLn "2 name - find number"
+    putStrLn "3 number - find name "
+    putStrLn "4 file - save to file"
+    putStrLn "5 - read from file"
 
 
 log' :: PhoneBook -> IO ()
@@ -42,9 +43,16 @@ log' book = do
                     [filename] -> do writeFile filename (show book); log' book
                     _ -> fail "wrong number of arguments"
         '5' -> do
-                file <- readFile (drop 2 command)
-                newbook <- readIO file :: IO PhoneBook
-                log' newbook
+                putStrLn "Type input file"
+                input <- getLine
+                fileExists <- doesFileExist input
+                if fileExists then do
+                    file <- readFile input
+                    newbook <- readIO file :: IO PhoneBook
+                    log' newbook
+                    else do
+                        putStrLn "Wrong file name"
+                        log' book
         _   -> fail $ "wrong command: " ++ command
 
 
